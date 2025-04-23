@@ -42,7 +42,7 @@ Paste this in:
             "command": "uv",
             "args": [
                 "--directory",
-                "/home/zach/Code/particle-mcp-server/",
+                "DIRECT/PATH/TO/particle-mcp-server",
                 "run",
                 "particle.py"
             ]
