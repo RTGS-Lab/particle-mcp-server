@@ -4,10 +4,7 @@ A Model Context Protocol server for the Particle IoT platform that enables AI as
 
 ## Features
 
-- Device management and monitoring
-- Firmware updates and deployment
-- Database interaction through natural language
-- Integration with Claude and other MCP-compatible AI assistants
+- Listing devices a part of your Particle organization
 
 ## Setup and Installation
 
