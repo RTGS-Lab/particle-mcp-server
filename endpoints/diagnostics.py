@@ -8,4 +8,4 @@ async def get_device_vitals(device_id: str) -> Dict[str, Any]:
     Args:
         device_id: The ID of the device
     """
-    return await make_api_request("get", f"/v1/devices/{device_id}/vitals")
+    return await make_api_request("get", f"/v1/diagnostics/{device_id}/last")

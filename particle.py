@@ -6,7 +6,7 @@ from mcp.server.fastmcp import FastMCP
 load_dotenv()
 
 # Import all endpoint modules
-from endpoints import devices, diagnostics, firmware, organizations, product_firmware
+from endpoints import devices, diagnostics, organizations, product_firmware
 
 # Initialize FastMCP server
 mcp = FastMCP("particle")
@@ -46,19 +46,6 @@ async def ping_device(device_id: str) -> Dict[str, Any]:
     """Ping a device to check if it's online."""
     return await diagnostics.ping_device(device_id)
 
-
-# -----------------
-# DIAGNOSTIC ENDPOINTS
-# -----------------
-
-@mcp.tool("get_device_vitals")
-async def get_device_vitals(device_id: str) -> Dict[str, Any]:
-    """Get the last known vitals for a device."""
-    return await diagnostics.get_device_vitals(device_id)
-
-# -----------------
-# FIRMWARE ENDPOINTS
-# -----------------
 @mcp.tool("call_function")
 async def call_function(device_id: str, function_name: str, argument: str = "") -> Dict[str, Any]:
     """
@@ -69,7 +56,16 @@ async def call_function(device_id: str, function_name: str, argument: str = "") 
         function_name: The name of the function to call
         argument: Argument to pass to the function (optional)
     """
-    return await firmware.call_function(device_id, function_name, argument)
+    return await devices.call_function(device_id, function_name, argument)
+
+# -----------------
+# DIAGNOSTIC ENDPOINTS
+# -----------------
+
+@mcp.tool("get_device_vitals")
+async def get_device_vitals(device_id: str) -> Dict[str, Any]:
+    """Get the last known vitals for a device."""
+    return await diagnostics.get_device_vitals(device_id)
 
 # -----------------
 # ORGANIZATION ENDPOINTS
