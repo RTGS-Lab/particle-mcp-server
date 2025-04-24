@@ -73,6 +73,7 @@ async def call_function(device_id: str, function_name: str, argument: str = "") 
         argument: Argument to pass to the function (optional)
     """
     return await firmware.call_function(device_id, function_name, argument)
+
 # -----------------
 # ORGANIZATION ENDPOINTS
 # -----------------
