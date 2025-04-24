@@ -1,45 +1,106 @@
-from typing import Any, Dict, List
-import httpx
-import os
+from typing import Any, Dict, Optional
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
 # Load environment variables
 load_dotenv()
 
+# Import all endpoint modules
+from endpoints import devices, diagnostics, firmware, organizations, product_firmware
+
 # Initialize FastMCP server
 mcp = FastMCP("particle")
 
-# Constants
-PARTICLE_API_BASE = "https://api.particle.io"
-
-# Get access token from environment variables
-ACCESS_TOKEN = os.getenv("PARTICLE_ACCESS_TOKEN")
-if not ACCESS_TOKEN:
-    raise EnvironmentError("PARTICLE_ACCESS_TOKEN environment variable is not set. Please add it to your .env file.")
-
-# Define a tool to list devices
+# -----------------
+# DEVICE ENDPOINTS
+# -----------------
 @mcp.tool("list_devices")
 async def list_devices() -> Dict[str, Any]:
     """List all Particle devices in your account."""
-    async with httpx.AsyncClient() as client:
-        headers = {
-            "Authorization": f"Bearer {ACCESS_TOKEN}",
-        }
-        
-        response = await client.get(
-            f"{PARTICLE_API_BASE}/v1/devices",
-            headers=headers
-        )
-        
-        if response.status_code == 200:
-            devices = response.json()
-            return {"devices": devices}
-        else:
-            return {
-                "error": f"Failed to fetch devices: {response.status_code}",
-                "message": response.text
-            }
+    return await devices.list_devices()
+
+@mcp.tool("list_product_devices")
+async def list_product_devices(product_id: str, page: int = 1, per_page: int = 25) -> Dict[str, Any]:
+    """
+    List devices in a specific product.
+    
+    Args:
+        product_id: The ID of the product
+        page: Page number for paginated results (default: 1)
+        per_page: Number of devices per page (default: 25)
+    """
+    return await devices.list_product_devices(product_id, page, per_page)
+
+@mcp.tool("get_device_info")
+async def get_device_info(device_id: str) -> Dict[str, Any]:
+    """Get detailed information about a specific device."""
+    return await devices.get_device_info(device_id)
+
+@mcp.tool("rename_device")
+async def rename_device(device_id: str, name: str) -> Dict[str, Any]:
+    """Rename a device."""
+    return await devices.rename_device(device_id, name)
+
+@mcp.tool("add_device_notes")
+async def add_device_notes(device_id: str, notes: str) -> Dict[str, Any]:
+    """Add notes to a device."""
+    return await devices.add_device_notes(device_id, notes)
+
+# -----------------
+# DIAGNOSTIC ENDPOINTS
+# -----------------
+@mcp.tool("ping_device")
+async def ping_device(device_id: str) -> Dict[str, Any]:
+    """Ping a device to check if it's online."""
+    return await diagnostics.ping_device(device_id)
+
+@mcp.tool("get_device_vitals")
+async def get_device_vitals(device_id: str) -> Dict[str, Any]:
+    """Get the last known vitals for a device."""
+    return await diagnostics.get_device_vitals(device_id)
+
+# -----------------
+# FIRMWARE ENDPOINTS
+# -----------------
+@mcp.tool("call_function")
+async def call_function(device_id: str, function_name: str, argument: str = "") -> Dict[str, Any]:
+    """
+    Call a function on a device.
+    
+    Args:
+        device_id: The ID of the device
+        function_name: The name of the function to call
+        argument: Argument to pass to the function (optional)
+    """
+    return await firmware.call_function(device_id, function_name, argument)
+# -----------------
+# ORGANIZATION ENDPOINTS
+# -----------------
+@mcp.tool("list_organizations")
+async def list_organizations() -> Dict[str, Any]:
+    """List all organizations the user has access to."""
+    return await organizations.list_organizations()
+
+@mcp.tool("list_organization_products")
+async def list_organization_products(org_id: str) -> Dict[str, Any]:
+    """List products within an organization."""
+    return await organizations.list_organization_products(org_id)
+
+# -----------------
+# PRODUCT FIRMWARE ENDPOINTS
+# -----------------
+@mcp.tool("list_product_firmware")
+async def list_product_firmware(product_id: str, page: int = 1, per_page: int = 25) -> Dict[str, Any]:
+    """
+    List all firmware versions for a specific product.
+    
+    Args:
+        product_id: The ID of the product
+        page: Page number for paginated results (default: 1)
+        per_page: Number of firmware versions per page (default: 25)
+    """
+    return await product_firmware.list_product_firmware(product_id, page, per_page)
+
 
 # Start the server when the script is run directly
 if __name__ == "__main__":
