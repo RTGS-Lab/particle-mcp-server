@@ -23,6 +23,8 @@ particle token create
 
 ## Usage
 
+Clone this repo
+
 Open Claude Desktop
 
 Navigate to Settings
