@@ -4,10 +4,7 @@ A Model Context Protocol server for the Particle IoT platform that enables AI as
 
 ## Features
 
-- Device management and monitoring
-- Firmware updates and deployment
-- Database interaction through natural language
-- Integration with Claude and other MCP-compatible AI assistants
+- Listing devices a part of your Particle organization
 
 ## Setup and Installation
 
@@ -26,6 +23,8 @@ particle token create
 
 ## Usage
 
+Clone this repo
+
 Open Claude Desktop
 
 Navigate to Settings
@@ -42,7 +41,7 @@ Paste this in:
             "command": "uv",
             "args": [
                 "--directory",
-                "/home/zach/Code/particle-mcp-server/",
+                "DIRECT/PATH/TO/particle-mcp-server",
                 "run",
                 "particle.py"
             ]
