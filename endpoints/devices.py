@@ -20,15 +20,6 @@ async def list_product_devices(product_id: str, page: int = 1, per_page: int = 2
     }
     return await make_api_request("get", f"/v1/products/{product_id}/devices", params=params)
 
-async def get_device_info(device_id: str) -> Dict[str, Any]:
-    """
-    Get detailed information about a specific device.
-    
-    Args:
-        device_id: The ID of the device
-    """
-    return await make_api_request("get", f"/v1/devices/{device_id}")
-
 async def rename_device(device_id: str, name: str) -> Dict[str, Any]:
     """
     Rename a device.
@@ -48,3 +39,12 @@ async def add_device_notes(device_id: str, notes: str) -> Dict[str, Any]:
         notes: The notes to add to the device
     """
     return await make_api_request("put", f"/v1/devices/{device_id}", json_data={"notes": notes})
+
+async def ping_device(device_id: str) -> Dict[str, Any]:
+    """
+    Ping a device to check if it's online.
+    
+    Args:
+        device_id: The ID of the device to ping
+    """
+    return await make_api_request("put", f"/v1/devices/{device_id}/ping")

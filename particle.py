@@ -31,11 +31,6 @@ async def list_product_devices(product_id: str, page: int = 1, per_page: int = 2
     """
     return await devices.list_product_devices(product_id, page, per_page)
 
-@mcp.tool("get_device_info")
-async def get_device_info(device_id: str) -> Dict[str, Any]:
-    """Get detailed information about a specific device."""
-    return await devices.get_device_info(device_id)
-
 @mcp.tool("rename_device")
 async def rename_device(device_id: str, name: str) -> Dict[str, Any]:
     """Rename a device."""
@@ -46,13 +41,15 @@ async def add_device_notes(device_id: str, notes: str) -> Dict[str, Any]:
     """Add notes to a device."""
     return await devices.add_device_notes(device_id, notes)
 
-# -----------------
-# DIAGNOSTIC ENDPOINTS
-# -----------------
 @mcp.tool("ping_device")
 async def ping_device(device_id: str) -> Dict[str, Any]:
     """Ping a device to check if it's online."""
     return await diagnostics.ping_device(device_id)
+
+
+# -----------------
+# DIAGNOSTIC ENDPOINTS
+# -----------------
 
 @mcp.tool("get_device_vitals")
 async def get_device_vitals(device_id: str) -> Dict[str, Any]:
