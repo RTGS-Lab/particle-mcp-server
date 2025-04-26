@@ -43,13 +43,13 @@ async def add_device_notes(device_id: str, notes: str) -> Dict[str, Any]:
 
 @mcp.tool("ping_device")
 async def ping_device(device_id: str) -> Dict[str, Any]:
-    """Ping a device to check if it's online."""
+    """Ping a device to check if it's online. This sould only ever be called if specifically asked for."""
     return await diagnostics.ping_device(device_id)
 
 @mcp.tool("call_function")
 async def call_function(device_id: str, function_name: str, argument: str = "") -> Dict[str, Any]:
     """
-    Call a function on a device.
+    Call a function on a device. This should only be used when a specific function needs to be called and explicitly asked for.
     
     Args:
         device_id: The ID of the device
