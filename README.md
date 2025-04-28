@@ -52,6 +52,3 @@ Paste this in:
     }
 }
 ```
-## License
-
-[Your chosen license]
