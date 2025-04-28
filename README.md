@@ -8,17 +8,22 @@ A Model Context Protocol server for the Particle IoT platform that enables AI as
 ## Features/API Endpoints Covered
 
 ### Devices
-- listDevices - lists all devices in your account
+- list_devices - lists all devices in your account
+- list_product_devices - list all devices in a specified product
+- rename_device - rename the device but keep the node_id the same
+- add_device_notes - add notes to a device
+- ping_device - pings the device to see if it is online
+- call_function - calls a specified function on a particular device
 
 ### Diagnostics
-- getLastKnownVitals - gets the last known vitals from a specific device
+- get_device_vitals - gets the last known vitals from a specific device
 
 ### Organizations
-- listOrganizations - lists all organizations apart of your account
-- listOrganizationProducts - lists all prodcuts within an organization
+- list_organizations - lists all organizations apart of your account
+- list_organization_products - lists all prodcuts within an organization
 
 ### Product Firmware
-- listProductFirmware - lists all firmware versions for a specific product id
+- list_product_firmware - lists all firmware versions for a specific product id
 
 ## Setup and Installation
 
