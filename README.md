@@ -5,9 +5,20 @@
 
 A Model Context Protocol server for the Particle IoT platform that enables AI assistants to manage Particle devices using natural language.
 
-## Features
+## Features/API Endpoints Covered
 
-- Listing devices a part of your Particle organization
+### Devices
+- listDevices - lists all devices in your account
+
+### Diagnostics
+- getLastKnownVitals - gets the last known vitals from a specific device
+
+### Organizations
+- listOrganizations - lists all organizations apart of your account
+- listOrganizationProducts - lists all prodcuts within an organization
+
+### Product Firmware
+- listProductFirmware - lists all firmware versions for a specific product id
 
 ## Setup and Installation
 
@@ -52,3 +63,9 @@ Paste this in:
     }
 }
 ```
+
+## Contributing
+
+https://docs.particle.io/reference/cloud-apis/api/#postman
+
+Follow along to set up the Particle API environment in Postman, and implement a tool for each API endpoint. Open a PR with your changes for review! Please keep PRs "small"
