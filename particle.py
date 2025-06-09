@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
@@ -81,6 +81,26 @@ async def call_function(
         argument: Argument to pass to the function (optional)
     """
     return await devices.call_function(device_id, function_name, argument)
+
+
+@mcp.tool("find_device_by_name")
+async def find_device_by_name(device_name: Union[str, List[str]]) -> Dict[str, Any]:
+    """
+    Find device(s) by name using fuzzy matching and return their node_ids without fetching all devices.
+    
+    This function efficiently searches for device(s) using fuzzy matching to handle natural language
+    queries like "device 47 in lccmr project" → "LCCMR_47" or "guadalupe" → "Guadalupe_Station_01".
+    Uses pagination to avoid loading the entire device list into memory. Use this instead of
+    list_devices when you need to find specific device node_ids.
+
+    Args:
+        device_name: The name/description of the device to search for, or a list of device names (supports fuzzy matching)
+        
+    Returns:
+        Dict containing device information including node_id, match_score, and match_type if found.
+        For multiple devices, returns a list of results under 'devices' key.
+    """
+    return await devices.find_device_by_name(device_name)
 
 
 # -----------------
