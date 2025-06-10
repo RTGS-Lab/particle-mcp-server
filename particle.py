@@ -87,7 +87,7 @@ async def call_function(
 async def find_device_by_name(device_name: Union[str, List[str]]) -> Dict[str, Any]:
     """
     Find device(s) by name using fuzzy matching and return their node_ids without fetching all devices.
-    
+
     This function efficiently searches for device(s) using fuzzy matching to handle natural language
     queries like "device 47 in lccmr project" → "LCCMR_47" or "guadalupe" → "Guadalupe_Station_01".
     Uses pagination to avoid loading the entire device list into memory. Use this instead of
@@ -95,7 +95,7 @@ async def find_device_by_name(device_name: Union[str, List[str]]) -> Dict[str, A
 
     Args:
         device_name: The name/description of the device to search for, or a list of device names (supports fuzzy matching)
-        
+
     Returns:
         Dict containing device information including node_id, match_score, and match_type if found.
         For multiple devices, returns a list of results under 'devices' key.
